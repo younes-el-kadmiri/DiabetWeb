@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Gestion des patients - DiabetoWeb{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="bloc" style="max-width: 900px; margin: 40px auto;">
+
+    <!-- Message de bienvenue en haut -->
+    <h2 style="text-align: center; color: #143029; margin-bottom: 20px;">
+      Bienvenue Dr. {{ doctor_name }}
+    </h2>
+
+    <!-- Fieldset stylisé -->
+    <fieldset style="padding: 30px; border: 2px solid #143029; border-radius: 10px; background-color: rgba(249, 249, 249, 0.85);">
+      <legend style="padding: 0 15px; font-weight: bold; color: #143029; font-size: 1.5em;">
+        Liste des patients
+      </legend>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+        <thead>
+          <tr style="background-color: #143029; color: white;">
+            <th style="padding: 10px;">Nom</th>
+            <th>Âge</th>
+            <th>IMC</th>
+            <th>Glucose</th>
+            <th>Pression artérielle</th>
+            <th>Prédiction</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px;">{{ patient.name }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.bmi }}</td>
+            <td>{{ patient.glucose }}</td>
+            <td>{{ patient.blood_pressure }}</td>
+            <td>
+              {% if patient.prediction %}
+                <strong style="color: #E75858;">Diabétique</strong>
+              {% else %}
+                <span style="color: #329932;">Non diabétique</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+</div>
+{% endblock %}

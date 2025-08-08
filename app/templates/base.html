@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DiabetoWeb</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+  <!-- Fond -->
+  <style>
+    body {
+      background-image: url('{{ url_for('static', filename='images/background.jpg') }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ url_for('patients') }}">
+      <img src="{{ url_for('static', filename='images/medicine-logo-png-1.png') }}" alt="MonApp" style="height: 40px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('patients') }}">Patients</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('add_patient') }}">Ajouter Patient</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profil</a></li>
+      </ul>
+    </div>
+
+    <div class="ml-auto d-flex align-items-center">
+      <img src="{{ url_for('static', filename='images/fr.svg') }}" alt="Français" style="width: 30px; height: 20px; cursor: pointer; margin-right: 10px;" />
+      <img src="{{ url_for('static', filename='images/en.svg') }}" alt="English" style="width: 30px; height: 20px; cursor: pointer;" />
+    </div>
+  </nav>
+
+  <!-- Contenu -->
+  <main class="container mt-4">
+    {% block content %}
+    <!-- Contenu spécifique à chaque page ici -->
+    {% endblock %}
+  </main>
+
+  <!-- JS (Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

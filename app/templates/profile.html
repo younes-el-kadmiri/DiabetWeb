@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  .profile-wrapper {
+    max-width: 750px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+
+  fieldset {
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 2px solid #028090;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  legend {
+    font-weight: 700;
+    font-size: 1.4em;
+    color: #014f86;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1.8px solid #a9d6e5;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #014f86;
+    box-shadow: 0 0 8px rgba(1, 79, 134, 0.3);
+  }
+
+  .btn {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+
+  .btn-primary {
+    background-color: #028090;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: #05668d;
+  }
+
+  .bYes {
+    background-color: #E75858;
+    color: white;
+  }
+
+  .bYes:hover {
+    background-color: #c94040;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+</style>
+
+<div class="profile-wrapper">
+  <fieldset>
+    <legend>Profil du Médecin</legend>
+    <p class="text-center">Bienvenue dans le profil du médecin.</p>
+
+    <form method="POST" action="{{ url_for('profile') }}">
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" value="{{ doctor.nom }}">
+      </div>
+      <div class="form-group">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" value="{{ doctor.prenom }}">
+      </div>
+      <div class="form-group">
+        <label for="specialite">Spécialité</label>
+        <input type="text" id="specialite" name="specialite" value="{{ doctor.specialite }}">
+      </div>
+      <div class="form-group">
+        <label for="email">Adresse e-mail</label>
+        <input type="email" id="email" name="email" value="{{ doctor.email }}">
+      </div>
+      <div class="form-group">
+        <label for="telephone">Téléphone</label>
+        <input type="tel" id="telephone" name="telephone" value="{{ doctor.telephone }}">
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+
+    <div class="text-center mt-4">
+      <button class="btn bYes" data-toggle="modal" data-target="#deleteModal">
+        <i class="fas fa-trash-alt mr-2"></i> Supprimer le profil
+      </button>
+    </div>
+  </fieldset>
+</div>
+
+<!-- MODALE DE SUPPRESSION -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-0">
+        <div class="col"></div>
+        <div class="col text-center">
+          <div id="rondTrash">
+            <i class="fas fa-trash-alt fa-2x" style="margin-top:11px;color:#E75858;"></i>
+          </div>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <p id="cDelete">Êtes-vous sûr(e) de vouloir supprimer ce patient ?</p>
+      </div>
+      <div class="modal-footer p-0">
+        <div style="width:100%;" class="m-0">
+          <button id="bCancel" type="button" class="btn bNo col" data-dismiss="modal">Annuler</button>
+          <button id="bDelete" type="button" class="btn bYes col">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Ajouter un patient - DiabetoWeb{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #012a4a;
+    background-color: #f4f4f4;
+  }
+
+  /* Centrer le contenu */
+  .form-wrapper {
+    max-width: 750px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+
+  /* Fieldset stylisé */
+  fieldset {
+    background-color: rgba(255, 255, 255, 0.88); /* transparence */
+    border: 2px solid #028090;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  legend {
+    font-weight: 700;
+    font-size: 1.4em;
+    color: #014f86;
+    padding: 0 10px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1.8px solid #a9d6e5;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #014f86;
+    box-shadow: 0 0 8px rgba(1, 79, 134, 0.3);
+  }
+
+  .button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #028090;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+
+  button:hover {
+    background-color: #05668d;
+  }
+</style>
+
+<div class="form-wrapper">
+<form method="POST" action="/add_patient">
+    <fieldset>
+      <legend>Informations du patient</legend>
+
+      <div class="form-group">
+        <label for="name">Nom du patient :</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Âge :</label>
+        <input type="number" name="age" id="age" required>
+      </div>
+
+      <div class="form-group">
+        <label for="pregnancies">Nombre de grossesses :</label>
+        <input type="number" name="pregnancies" id="pregnancies" required>
+      </div>
+
+      <div class="form-group">
+        <label for="glucose">Glucose :</label>
+        <input type="number" name="glucose" id="glucose" required>
+      </div>
+
+      <div class="form-group">
+        <label for="blood_pressure">Pression artérielle :</label>
+        <input type="number" name="blood_pressure" id="blood_pressure" required>
+      </div>
+
+      <div class="form-group">
+        <label for="skin_thickness">Épaisseur de la peau :</label>
+        <input type="number" name="skin_thickness" id="skin_thickness" required>
+      </div>
+
+      <div class="form-group">
+        <label for="insulin">Insuline :</label>
+        <input type="number" name="insulin" id="insulin" required>
+      </div>
+
+      <div class="form-group">
+        <label for="bmi">IMC :</label>
+        <input type="number" step="any" name="bmi" id="bmi" required>
+      </div>
+
+      <div class="form-group">
+        <label for="diabetes_pedigree_function">Fonction pedigree diabétique :</label>
+        <input type="number" step="any" name="diabetes_pedigree_function" id="diabetes_pedigree_function" required>
+      </div>
+
+      <div class="button-container">
+        <button type="submit" class="bYes">Soumettre</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+{% endblock %}

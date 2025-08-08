@@ -1,0 +1,219 @@
+/* === Styles globaux communs à toutes les pages === */
+
+body {
+  overflow: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f8f9fa; /* Couleur neutre de fond par défaut */
+  margin: 0;
+  padding: 0;
+  color: rgba(1, 13, 40, 0.8);
+}
+
+/* Section avec image de fond pour certaines pages */
+.section::before {
+  position: absolute;
+  content: '';
+  z-index: -1;
+  width: 100%;
+  height: 55%;
+  opacity: 0.9;
+  background-position: 100% 25%;
+  background-image: url(./../images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Navbar et menu bar global */
+.navbar {
+  min-height: 50px;
+  background-color: rgba(20, 32, 41, 0.6);
+}
+
+.menu-bar {
+  background-color: rgba(20, 32, 41, 0.6);
+}
+
+/* Styles pour les drapeaux langue */
+.flag {
+  height: 75%;
+  opacity: 0.65;
+  cursor: pointer;
+  margin-top: 3px;
+  transition: opacity 0.3s ease;
+}
+.flag:hover {
+  opacity: 1;
+}
+
+/* Bloc générique */
+.bloc {
+  border-radius: 15px;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Boutons globaux */
+.bYes, .bNo {
+  height: 50px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: font-size 0.3s ease, font-weight 0.3s ease;
+}
+.bYes {
+  background-color: #E75858;
+  border-bottom-right-radius: 3px;
+}
+.bNo {
+  background-color: rgb(150, 150, 150);
+  border-bottom-left-radius: 3px;
+}
+.bYes:hover, .bNo:hover {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Modal commun */
+.modal-content {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 10px;
+}
+
+.modal-footer {
+  background-color: #f6fafd;
+  border-top: none;
+  padding: 0;
+}
+
+/* Style pour tooltips */
+.tooltip-inner {
+  background-color: rgb(1, 13, 40);
+  color: white;
+}
+
+/* Désactivation des flèches sur input number */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Tables, labels, et autres */
+.labeldescription {
+  font-weight: bold;
+}
+h4, h5 {
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: rgba(1, 13, 40, 0.8);
+}
+
+/* === Styles spécifiques à la page LOGIN === */
+
+body.login-page {
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  min-height: 100vh;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #011D3D;
+  overflow: auto;
+}
+
+/* Conteneur login */
+.login-container {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Titres dans login */
+.login-container h2 {
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #011D3D;
+}
+
+/* Champs input login */
+.login-container input[type="email"],
+.login-container input[type="password"],
+.login-container input[type="text"],
+.login-container select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+.login-container input:focus,
+.login-container select:focus {
+  outline: none;
+  border-color: #011D3D;
+  box-shadow: 0 0 6px rgba(1, 13, 40, 0.3);
+}
+
+/* Bouton login */
+.login-container button {
+  width: 100%;
+  padding: 14px;
+  background-color: #011D3D;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.login-container button:hover {
+  background-color: #014080;
+}
+
+/* Lien mot de passe oublié */
+#forgot, #forgot:active, #forgot:visited {
+  color: #011D3D;
+  font-size: 15px;
+  display: block;
+  text-align: right;
+  margin-top: -15px;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+#forgot:hover {
+  text-decoration: underline;
+}
+
+/* Message d’erreur ou info */
+.login-container .error-msg {
+  color: #E75858;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inscription</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Styles -->
+  <style>
+    body {
+      background-image: url('{{ url_for('static', filename='images/background.jpg') }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .register-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .register-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .register-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .register-container button:hover {
+      background-color: #156dc0;
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .lang-switch img {
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+
+    .footer-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="lang-switch">
+      <img src="{{ url_for('static', filename='images/fr.svg') }}" alt="FR" title="Français" />
+      <img src="{{ url_for('static', filename='images/en.svg') }}" alt="EN" title="English" />
+    </div>
+
+    <h2>Inscription</h2>
+    <form method="POST" action="{{ url_for('register') }}">
+<form method="POST" action="{{ url_for('register') }}">
+    <input type="text" name="nom" placeholder="Nom" required />
+    <input type="text" name="prenom" placeholder="Prénom" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Mot de passe" required />
+    <select name="specialite" required>
+        <option value="" disabled selected>Choisissez une spécialité</option>
+        <option value="cardiologie">Cardiologie</option>
+        <option value="dermatologie">Dermatologie</option>
+        <option value="neurologie">Neurologie</option>
+        <option value="pediatrie">Pédiatrie</option>
+        <option value="psychiatrie">Psychiatrie</option>
+        <option value="radiologie">Radiologie</option>
+        <option value="chirurgie">Chirurgie</option>
+        <!-- Ajoute autant d'options que tu veux -->
+    </select>
+    <input type="text" name="telephone" placeholder="Téléphone" required />
+    <button type="submit">Créer un compte</button>
+</form>
+    <p style="text-align: center; margin-top: 15px;">
+        Déjà un compte ? <a href="{{ url_for('home') }}">Connectez-vous ici</a>
+    </p>
+  </div>
+</body>
+</html>
