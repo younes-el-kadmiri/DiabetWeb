@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import os
 import functools
 import joblib
+import numpy as np
 
 load_dotenv()
 
@@ -20,9 +21,29 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    # Chargement modèle ML (adapter le chemin si besoin)
+    # Chargement modèle ML
     model_path = os.path.join(os.path.dirname(__file__), '..', 'ml_model', 'model.pkl')
+    scaler_path = os.path.join(os.path.dirname(__file__), '..', 'ml_model', 'scaler.pkl')
     model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+
+    # Fonction de prédiction
+    def predict_diabetes(features):
+        """
+        features : liste [pregnancies, glucose, blood_pressure, skin_thickness,
+                          insulin, bmi, diabetes_pedigree_function, age]
+        Retourne True si diabétique, False sinon
+        """
+        arr = np.array(features).reshape(1, -1)
+        arr_scaled = scaler.transform(arr)
+        pred = model.predict(arr_scaled)[0]
+
+        # Si c'est un classifieur binaire
+        if pred in [0, 1]:
+            return bool(pred)
+        # Si c'est un clusteriseur type KMeans
+        # Ici on suppose que cluster 1 = diabétique
+        return pred == 1
 
     # Décorateur pour protéger routes
     def login_required(view):
@@ -104,14 +125,31 @@ def create_app():
     def patients():
         doctor = Doctor.query.get(session['doctor_id'])
         if request.method == "POST":
+            # Récupération des features
+            features = [
+                float(request.form.get('pregnancies')),
+                float(request.form.get('glucose')),
+                float(request.form.get('blood_pressure')),
+                float(request.form.get('skin_thickness')),
+                float(request.form.get('insulin')),
+                float(request.form.get('bmi')),
+                float(request.form.get('diabetes_pedigree_function')),
+                float(request.form.get('age'))
+            ]
+            prediction_result = predict_diabetes(features)
+
             new_patient = Patient(
                 doctor_id=doctor.id,
                 name=request.form.get("name"),
                 age=int(request.form.get("age")),
-                bmi=float(request.form.get("bmi")),
+                pregnancies=int(request.form.get("pregnancies")),
                 glucose=float(request.form.get("glucose")),
                 blood_pressure=float(request.form.get("blood_pressure")),
-                prediction=float(request.form.get("glucose")) > 125,
+                skin_thickness=float(request.form.get("skin_thickness")),
+                insulin=float(request.form.get("insulin")),
+                bmi=float(request.form.get("bmi")),
+                diabetes_pedigree_function=float(request.form.get("diabetes_pedigree_function")),
+                prediction=prediction_result
             )
             db.session.add(new_patient)
             db.session.commit()
@@ -138,19 +176,8 @@ def create_app():
                 float(request.form.get('age'))
             ]
 
-            print("Features brutes:", features)
-
-            features_scaled = scaler.transform([features])
-            print("Features scalées:", features_scaled)
-
-            pred = model.predict(features_scaled)[0]
-            print("Prediction (cluster):", pred)
-
-            # Interprétation du cluster
-            if pred == 1:
-                prediction_text = "Risque élevé (diabétique)"
-            else:
-                prediction_text = "Risque faible (non diabétique)"
+            prediction_result = predict_diabetes(features)
+            prediction_text = "Diabétique" if prediction_result else "Non diabétique"
 
             # Stockage
             patient = Patient(
@@ -164,13 +191,12 @@ def create_app():
                 insulin=float(request.form.get("insulin")),
                 bmi=float(request.form.get("bmi")),
                 diabetes_pedigree_function=float(request.form.get("diabetes_pedigree_function")),
-                prediction=bool(pred)
+                prediction=prediction_result
             )
             db.session.add(patient)
             db.session.commit()
 
             return render_template("add_patient.html", prediction=prediction_text)
-
 
         return render_template("add_patient.html")
 
